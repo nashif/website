@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Base title="Blog · Planux">
+  <h1>Blog</h1>
+  <ul>
+    {posts.map((post) => (
+      <li>
+        <a href={`${base}/blog/${post.id}/`}>{post.data.title}</a>
+        <small> · {post.data.pubDate.toISOString().slice(0, 10)}</small>
+        <p>{post.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</Base>
