@@ -13,8 +13,10 @@ const { Content } = await render(post);
 
 <Base title={`${post.data.title} · Planux`}>
   <article>
-    <h1>{post.data.title}</h1>
-    <p><small>{post.data.pubDate.toISOString().slice(0, 10)}</small></p>
+    <header class="mb-4">
+      <h1>{post.data.title}</h1>
+      <p class="text-body-secondary mb-0">{post.data.pubDate.toISOString().slice(0, 10)}</p>
+    </header>
     <Content />
   </article>
 </Base>

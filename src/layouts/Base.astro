@@ -1,38 +1,65 @@
 ---
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 interface Props {
   title: string;
 }
 const { title } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = Astro.url.pathname;
+const links = [
+  { href: `${base}/`, label: 'Home', active: path === `${base}/` },
+  { href: `${base}/blog/`, label: 'Blog', active: path.startsWith(`${base}/blog`) },
+];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <title>{title}</title>
-    <style>
-      body {
-        max-width: 42rem;
-        margin: 2rem auto;
-        padding: 0 1rem;
-        font-family: system-ui, sans-serif;
-        line-height: 1.6;
-      }
-      nav a {
-        margin-right: 1rem;
-      }
-    </style>
   </head>
-  <body>
-    <nav>
-      <a href={`${base}/`}>Home</a>
-      <a href={`${base}/blog/`}>Blog</a>
+  <body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-sm bg-body-tertiary border-bottom">
+      <div class="container">
+        <a class="navbar-brand fw-semibold" href={`${base}/`}>Planux</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav"
+          aria-controls="nav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto">
+            {links.map((l) => (
+              <li class="nav-item">
+                <a class:list={['nav-link', { active: l.active }]} href={l.href} aria-current={l.active ? 'page' : undefined}>
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </nav>
-    <main>
+
+    <main class="container py-4 flex-grow-1" style="max-width: 48rem">
       <slot />
     </main>
+
+    <footer class="border-top py-3 text-body-secondary small">
+      <div class="container">&copy; {new Date().getFullYear()} Planux</div>
+    </footer>
+
+    <script>
+      import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+    </script>
   </body>
 </html>

@@ -1,8 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base title="Planux">
-  <h1>Planux</h1>
-  <p>Welcome. This site is under construction.</p>
+  <div class="py-5">
+    <h1 class="display-5 fw-bold">Planux</h1>
+    <p class="lead">Welcome. This site is under construction.</p>
+    <a class="btn btn-primary" href={`${base}/blog/`}>Read the blog</a>
+  </div>
 </Base>
