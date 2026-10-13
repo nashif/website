@@ -31,6 +31,18 @@
   --ok: #1a8a44;
   --badge: #f2b600;
   color-scheme: light;
+  /* Shiki css-variables theme: code stays monochrome and follows the active theme */
+  --astro-code-foreground: var(--ink);
+  --astro-code-background: var(--canvas);
+  --astro-code-token-comment: var(--smoke);
+  --astro-code-token-string: var(--steel);
+  --astro-code-token-string-expression: var(--steel);
+  --astro-code-token-keyword: var(--ink);
+  --astro-code-token-constant: var(--ink);
+  --astro-code-token-function: var(--ink);
+  --astro-code-token-parameter: var(--steel);
+  --astro-code-token-punctuation: var(--smoke);
+  --astro-code-token-link: var(--link);
 }
 
 :root[data-theme="dark"],
@@ -173,6 +185,14 @@
   .prose-runlog code { color: var(--ink); background: var(--tint); padding: 1px 5px; font-size: 0.9em; }
   .prose-runlog pre { border: 1px solid var(--rule); padding: 16px 18px; overflow-x: auto; font-size: 13px; line-height: 1.7; color: var(--ink); background: var(--canvas) !important; }
   .prose-runlog pre code { background: none; padding: 0; }
+  /* fenced output shown as a screen (```screen title="..." tag="..."), same chrome as MediaWindow */
+  .prose-runlog .screen { border: 1px solid var(--ink); background: var(--canvas); }
+  .prose-runlog .screen figcaption { display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 14px; border-bottom: 1px solid var(--ink); background: var(--tint); font-size: 12px; color: var(--smoke); }
+  .prose-runlog .screen-dots { display: flex; gap: 6px; }
+  .prose-runlog .screen-dots span { width: 8px; height: 8px; border: 1px solid var(--stone); }
+  .prose-runlog .screen-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .prose-runlog .screen-tag { margin-left: auto; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .prose-runlog .screen pre { border: 0; }
   .prose-runlog blockquote { border-left: 2px solid var(--ink); padding-left: 24px; color: var(--ink); font-size: 22px; line-height: 1.4; letter-spacing: -0.015em; }
   .prose-runlog ul { list-style: none; padding: 0; }
   .prose-runlog ul li { padding-left: 22px; position: relative; }

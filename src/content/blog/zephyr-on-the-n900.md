@@ -19,7 +19,7 @@ The constraints were set by the phone itself. Its bootloader, NOLO, is signed, a
 
 The open source Maemo flasher `0xFFFF` is packaged in Ubuntu and ships its own udev rule. With the phone powered off and USB plugged in, it caught the OMAP boot ROM first, then NOLO:
 
-```
+```screen title="0xFFFF" tag="usb"
 Found USB device: (not detected)
 Detected OMAP3430 chip (revision 87)
 Sending OMAP memory boot message...
