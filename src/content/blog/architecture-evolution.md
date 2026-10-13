@@ -5,7 +5,7 @@ date: 2026-10-12
 category: engineering
 author: Anas Nashif
 readingTime: 8
-featured: true
+featured: false
 ---
 
 When Zephyr started, its architecture support was modest and focused. The project originally supported three architectures: **Arm**, **x86**, and **ARC**. That was enough for its initial goals and proved an important point: a small, scalable RTOS could be portable across very different processor architectures without fragmenting into separate architecture-specific operating systems.

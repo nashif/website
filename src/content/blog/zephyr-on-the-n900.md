@@ -5,7 +5,7 @@ date: 2026-10-13
 category: engineering
 author: Anas Nashif
 readingTime: 46
-featured: false
+featured: true
 cover: '/blog/zephyr-on-the-n900/phone-kites.jpg'
 ---
 
