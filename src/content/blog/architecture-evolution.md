@@ -1,5 +1,5 @@
 ---
-title: 'From Three Architectures to a Truly Cross-Architecture RTOS: The Evolution of Architecture Support in Zephyr'
+title: 'From Three Architectures to a Truly Cross-Architecture RTOS'
 description: 'The Evolution of Architecture Support in Zephyr'
 pubDate: 2026-10-12
 ---
