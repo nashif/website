@@ -624,7 +624,7 @@ The phone demo has a sound thread that synthesizes its sounds and keeps the ampl
 
 ## The series
 
-Fifty-seven commits on `topic/n900/bringup`.
+The porting happend in the main zephyr tree in a branch. At the end of the day I had fifty-seven commits on `topic/n900/bringup`.
 
 ```
 arch: arm: core: add Cortex-A8 support
@@ -685,6 +685,20 @@ soc: ti: omap3: add the McBSP serial ports
 boards: nokia: n900: add the vibrator
 boards: nokia: n900: add the speaker path
 ```
+
+
+## Doing it right out of tree
+
+There is no intention to make this part of Zephyr.
+
+The idea here is to use this port as a way to show that you can do quite impressive things without being part of the zephyr tree. This is however not always easy or possible.
+
+The port now lives in its own repository, and only 15 commits remain as changes to Zephyr itself.
+
+The new repository ([zephyr-n900](https://github.com/nashif/zephyr-n900), started from upstream example-application) holds the SoC, board, devicetree and bindings, all 26 new drivers, the NOLO flash runner, a driver build test, all 25 apps, the bring-up tools. Files keep the paths they had in the Zephyr tree, so upstreaming anything later is a plain copy. It's nine commits on main.
+
+The branch [topic/n900/core](https://github.com/nashif/zephyr/tree/topic/n900/core) is in my zephyr fork plus the 15 commits that change existing Zephyr code: Cortex-A8 support, two MMU fixes, the A8 FPU flag, the McSPI, TSL2561, input/gpio_keys and LVGL rotation changes.
+
 
 ## What's next
 
