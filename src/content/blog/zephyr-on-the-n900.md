@@ -9,6 +9,26 @@ featured: true
 cover: '/blog/zephyr-on-the-n900/phone-kites.jpg'
 ---
 
+## Long, long time ago...
+
+Back in the late 2000s, I spent a significant amount of my time at Intel working on Moblin, an open-source Linux platform for mobile devices. That work eventually led to a collaboration between Intel and Nokia to [merge Moblin and Maemo into what became MeeGo](https://hothardware.com/news/intel-and-nokia-smash-moblin-and-maemo-develop-meego-mobile-operating-system).
+
+It was an exciting time. I spent many memorable days in Helsinki working alongside Nokia engineers, and the collaboration was one of the main reasons I eventually moved from Montreal to London. Unfortunately, [MeeGo's story was cut short](https://www.engadget.com/2011-02-12-nokias-marginalization-of-meego-came-as-a-surprise-to-intel.html) when Nokia changed direction in 2011. It was fun while it lasted, though, and certainly an experience I still look back on fondly.
+
+One of the few tangible things I still have from those days is a Nokia N900. Surprisingly, more than 15 years later, the device has aged remarkably well. It still works, and even the original battery holds a charge! For years, it sat in a box alongside various other mementos from that era, largely forgotten.
+
+That changed over a recent long weekend when I went looking for a fun technical project. I wanted something that would be both an interesting challenge and an opportunity to explore some of the gaps in Zephyr, particularly around hardware enablement and out-of-tree platform support. The N900 seemed like the perfect candidate.
+
+Porting an RTOS to an entirely new platform is normally a significant undertaking. Depending on the hardware, documentation, and existing software support, it can easily take days, weeks, or even months. But this time, I had an additional tool at my disposal: an AI coding agent.
+
+Using Claude, I managed to get Zephyr running on the N900 in just one day.
+
+Of course, this wasn't AI magically creating an entire hardware port from scratch. Much of the necessary infrastructure and functionality already existed in Zephyr, and the AI agent was able to build on that foundation, connect the pieces, and help fill in the gaps. The N900's age actually worked in our favor: more than 15 years of existing Linux support provided valuable references for understanding and initializing the hardware. It is also a remarkably developer-friendly device, with no need for jailbreaking, bypassing locked bootloaders, or dealing with many of the restrictions common on modern smartphones.
+
+What started as a small weekend experiment turned into an interesting demonstration of just how much existing Zephyr infrastructure can be reused, how practical out-of-tree platform support can be, and how AI-assisted development can dramatically accelerate the process.
+
+Here's how it went.
+
 ## Can Zephyr run on a Nokia phone?
 
 The Nokia N900 has a TI OMAP3430: one ARM Cortex-A8 core at 600 MHz, 256 MB of SDRAM and an 800×480 LCD. Zephyr had no Cortex-A8 support and nothing for the OMAP3 family. It did have ARMv7-A support for the Cortex-A5, A7 and A9, a Cortex-A/R interrupt path that can take a custom interrupt controller, and a 16550 UART driver that matches the OMAP3 UARTs.
@@ -75,7 +95,7 @@ The boot-stage bands stayed in the tree as `CONFIG_SOC_OMAP3_BOOT_STAGES`. They 
 
 NOLO configures the panel and the display controller, so a Zephyr display driver only has to take over the graphics layer. The driver points it at a 2 MB framebuffer reserved at the top of SDRAM, in XRGB8888, and serves the display API through the framebuffer helpers already in the tree. The console moved into the same reserved buffer, which took its 750 KB buffer out of the image: `hello_world` went from 811 KB to 41 KB, which also made every USB load faster.
 
-The stock LVGL sample built after a `west update lvgl` (the workspace's LVGL was older than `west.yml`) and a board default for the XRGB8888 color format. It showed "Hello world!" and a counter on the phone.
+The stock LVGL sample built after a board default for the XRGB8888 color format. It showed "Hello world!" and a counter on the phone.
 
 The same day also added a `nolo` west runner, so `west flash` waits for the phone in NOLO's USB mode and RAM-boots the image.
 
