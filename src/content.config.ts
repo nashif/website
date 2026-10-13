@@ -9,7 +9,7 @@ const blog = defineCollection({
     title: z.string(),
     excerpt: z.string(),
     date: z.coerce.date(),
-    category: z.enum(['engineering', 'research', 'product', 'customers']),
+    category: z.enum(['zephyr', 'open-source', 'family', 'rtos']),
     author: z.string(),
     readingTime: z.number().default(5),
     featured: z.boolean().default(false),
