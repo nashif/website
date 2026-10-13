@@ -1,0 +1,13 @@
+{
+  "name": "Planux",
+  "description": "Notes on embedded systems, open source and the Zephyr RTOS.",
+  "install": "git clone https://github.com/nashif/website",
+  "announcement": {
+    "text": "New post: From Three Architectures to a Truly Cross-Architecture RTOS",
+    "href": "/blog/architecture-evolution"
+  },
+  "cta": {
+    "label": "Read the blog",
+    "href": "/blog"
+  }
+}

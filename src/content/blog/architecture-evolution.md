@@ -1,7 +1,11 @@
 ---
 title: 'From Three Architectures to a Truly Cross-Architecture RTOS'
-description: 'The Evolution of Architecture Support in Zephyr'
-pubDate: 2026-10-12
+excerpt: 'The evolution of architecture support in Zephyr, from three ports to a kernel designed to be portable from the start.'
+date: 2026-10-12
+category: engineering
+author: Anas Nashif
+readingTime: 8
+featured: true
 ---
 
 When Zephyr started, its architecture support was modest and focused. The project originally supported three architectures: **Arm**, **x86**, and **ARC**. That was enough for its initial goals and proved an important point: a small, scalable RTOS could be portable across very different processor architectures without fragmenting into separate architecture-specific operating systems.

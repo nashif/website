@@ -1,65 +1,46 @@
 ---
-import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
 
-interface Props {
-  title: string;
-}
-const { title } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const path = Astro.url.pathname;
-const links = [
-  { href: `${base}/`, label: 'Home', active: path === `${base}/` },
-  { href: `${base}/blog/`, label: 'Blog', active: path.startsWith(`${base}/blog`) },
-];
+interface Props { title?: string; description?: string; image?: string; footer?: boolean; header?: boolean; type?: 'website' | 'article' }
+const { title, description = site.description, image = '/og.png', footer = true, header = true, type = 'website' } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.description.split('.')[0]}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const ogImage = new URL(image, Astro.site ?? site.url).href;
+const jsonLd = { '@context': 'https://schema.org', '@type': 'Organization', name: site.name, url: site.url, logo: new URL('/favicon.svg', site.url).href };
 ---
 
-<!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>
+      try { document.documentElement.dataset.theme = localStorage.getItem('theme') ?? 'light'; } catch {}
+    </script>
+    <slot name="head" />
   </head>
-  <body class="d-flex flex-column min-vh-100 pt-5">
-    <nav class="navbar navbar-expand-sm fixed-top bg-body-tertiary border-bottom">
-      <div class="container">
-        <a class="navbar-brand fw-semibold" href={`${base}/`}>Planux</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#nav"
-          aria-controls="nav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="nav">
-          <ul class="navbar-nav ms-auto">
-            {links.map((l) => (
-              <li class="nav-item">
-                <a class:list={['nav-link', { active: l.active }]} href={l.href} aria-current={l.active ? 'page' : undefined}>
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <main class="container py-4 flex-grow-1" style="max-width: 48rem">
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[70] btn btn-inverse btn-s">Skip to content</a>
+    {header ? <Header /> : <slot name="header" />}
+    <main id="main">
       <slot />
     </main>
-
-    <footer class="border-top py-3 text-body-secondary small">
-      <div class="container">&copy; {new Date().getFullYear()} Planux</div>
-    </footer>
-
-    <script>
-      import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-    </script>
+    {footer && <Footer />}
   </body>
 </html>

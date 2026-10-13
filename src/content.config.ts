@@ -1,12 +1,19 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
+// Same model as keystatic.config.ts. Files can be edited by hand, by an AI agent, or in /keystatic.
 const blog = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
-    description: z.string(),
-    pubDate: z.coerce.date(),
+    excerpt: z.string(),
+    date: z.coerce.date(),
+    category: z.enum(['engineering', 'research', 'product', 'customers']),
+    author: z.string(),
+    readingTime: z.number().default(5),
+    featured: z.boolean().default(false),
+    cover: z.string().nullish(),
   }),
 });
 
