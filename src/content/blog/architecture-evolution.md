@@ -2,7 +2,7 @@
 title: 'From Three Architectures to a Truly Cross-Architecture RTOS'
 excerpt: 'The evolution of architecture support in Zephyr, from three ports to a kernel designed to be portable from the start.'
 date: 2026-10-12
-category: engineering
+category: zephyr
 author: Anas Nashif
 readingTime: 8
 featured: false

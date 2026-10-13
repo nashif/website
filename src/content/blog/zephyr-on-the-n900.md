@@ -2,7 +2,7 @@
 title: 'Zephyr on the Nokia N900'
 excerpt: 'A 2009 phone, a signed bootloader that cannot be replaced, no serial cable and a webcam pointed at the screen: how Zephyr went from a question to a working phone with a touchscreen, camera, sound and its own drivers.'
 date: 2026-10-13
-category: engineering
+category: zephyr
 author: Anas Nashif
 readingTime: 46
 featured: true
