@@ -604,7 +604,7 @@ The phone demo has a sound thread that synthesizes its sounds and keeps the ampl
 
 ## The series
 
-Fifty-seven commits on `topic/n900/bringup`. Compliance is clean apart from the missing `Signed-off-by` lines, which the author adds, and two advisory ClangFormat hints left as they are.
+Fifty-seven commits on `topic/n900/bringup`.
 
 ```
 arch: arm: core: add Cortex-A8 support
